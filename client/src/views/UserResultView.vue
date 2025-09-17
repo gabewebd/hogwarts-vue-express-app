@@ -83,21 +83,7 @@
           <router-link :to="tryAgainLink" class="magical-button">Try Again</router-link>
         </nav>
       </template>
-      <template v-else-if="type === '404'">
-        <h1 class="error-404">404</h1>
-        <h2>Page Not Found!</h2>
-        <p class="magical-text">The magical page you seek does not exist</p>
-        <p>The page you're looking for cannot be found in our magical database.</p>
-        <p class="spell-text">Perhaps it was hidden by a Disillusionment Charm?</p>
-        <div class="error-details">
-          <h2>What happened?</h2>
-          <p><strong>Requested Path:</strong> {{ currentUserData.path }}</p>
-          <p>The path you're trying to access doesn't exist in our magical portal. Please check the URL for any spelling mistakes or return to the main portal.</p>
-        </div>
-        <nav>
-          <router-link to="/" class="magical-button">Return to Hogwarts Portal</router-link>
-        </nav>
-      </template>
+      
     </template>
   </div>
 </template>
