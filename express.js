@@ -120,6 +120,24 @@ app.post('/api/update-grade', (req, res) => {
     }
 });
 
+// new api route: delete student grade
+app.delete('/api/students/:studentID', (req, res) => {
+    const { studentID } = req.params;
+    const initialLength = students.length;
+    
+    const updatedStudents = students.filter(s => s.studentID !== studentID);
+    
+    if (updatedStudents.length < initialLength) {
+        students.length = 0;
+        students.push(...updatedStudents);
+
+        console.log(`Student with ID ${studentID} deleted.`);
+        res.json({ success: true, message: 'Student deleted successfully!' });
+    } else {
+        res.status(404).json({ success: false, message: 'Student not found.' });
+    }
+});
+
 // catch-all route to serve the Vue app
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'client/dist/index.html'));

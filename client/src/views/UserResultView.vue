@@ -53,7 +53,10 @@
             <label for="newGrade">New Grade:</label>
             <input type="number" id="newGrade" v-model="newGrade" class="magical-input" step="0.1" min="0" max="100" />
             
-            <input type="submit" value="Update Grade" :disabled="!selectedStudentId || newGrade === null" />
+            <div class="admin-actions">
+              <input type="submit" value="Update Grade" :disabled="!selectedStudentId || newGrade === null" />
+              <button type="button" @click="deleteStudent" :disabled="!selectedStudentId">Delete Student</button>
+            </div>
           </form>
           <p v-if="gradeMessage" :class="gradeMessageClass">{{ gradeMessage }}</p>
         </div>
@@ -248,6 +251,44 @@ export default {
         this.gradeMessage = 'Failed to connect to the server.';
         this.gradeMessageClass = 'error-message';
       }
+    },
+
+    async deleteStudent() {
+    if (!this.selectedStudentId) {
+    this.gradeMessage = 'Please select a student to delete.';
+    this.gradeMessageClass = 'error-message';
+    return;
+    }
+
+      const confirmDelete = confirm(`Are you sure you want to delete student with ID ${this.selectedStudentId}? This action cannot be undone.`);
+      if (!confirmDelete) {
+      return;
+      }
+
+        try {
+        const response = await fetch(`/api/students/${this.selectedStudentId}`, {
+        method: 'DELETE',
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          this.gradeMessage = data.message;
+          this.gradeMessageClass = 'success-message';
+
+          this.students = this.students.filter(s => s.studentID !== this.selectedStudentId);
+
+          this.selectedStudentId = '';
+          this.newGrade = null; 
+          } else {
+          this.gradeMessage = data.message || 'Failed to delete student.';
+          this.gradeMessageClass = 'error-message';
+          }
+      } catch (error) {
+        console.error('Error deleting student:', error);
+        this.gradeMessage = 'Failed to connect to the server.';
+        this.gradeMessageClass = 'error-message';
+      }
     }
   }
 }
@@ -271,6 +312,15 @@ export default {
   width: 50%;
   margin: 20px auto;
 }
+
+.admin-actions {
+  display: flex;
+  flex-direction: column; /* This will stack items vertically */
+  justify-content: center;
+  gap: 10px;
+  align-items: center; /* This will center items horizontally when stacked */
+}
+
 .admin-panel form {
   display: flex;
   flex-direction: column;
