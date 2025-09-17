@@ -5,6 +5,7 @@ This project is a simple web portal for a school administration system, built wi
 ## Features
 * **User Management**: Separate dashboards for regular users, students, and admins.
 * **Student Grading**: An admin panel for professors to view and update student grades.
+* **Student Delete Option**: An admin panel for professors to delete students.
 * **API Endpoints**: RESTful API for handling user authentication and data management.
 * **Error Handling**: A custom 404 page for invalid routes.
 
