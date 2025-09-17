@@ -1,6 +1,6 @@
 # Hogwarts Portal
 This project is a simple web portal for a school administration system, built with a Vue.js front end and an Express.js back end. It includes different login types for users, students, and administrators.
-* to run with MongoDB, **please navigate to https://github.com/gabewebd/hogwarts-vue-express-mongo**
+* **This version is using an in-memory database. To run with MongoDB, *please navigate to https://github.com/gabewebd/hogwarts-vue-express-mongo***
   
 ## Features
 * **User Management**: Separate dashboards for regular users, students, and admins.
